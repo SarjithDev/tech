@@ -7,161 +7,268 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@700;800;900&display=swap" rel="stylesheet">
     
     <style>
+        /* Custom styles for professional look */
         html {scroll-behavior: smooth;}
         
-        /* Custom styles for professional look */
-        /* NOTE: Inter font is now loaded via the link tag above */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7fafc; /* Light gray background */
+            background-color: #fcfcfc; /* Very light, almost white background */
         }
-        /* Custom utility classes, overriding any old sky-blue ones with Indigo-600 */
+        
+        /* Custom utility classes, based on Indigo-600 */
         .font-lexend { font-family: 'Lexend', sans-serif; } 
         .text-accent {
-            color: #4f46e5; /* Indigo 600 - Matches header buttons/hover */
+            color: #4f46e5; /* Indigo 600 */
         }
         .bg-accent {
             background-color: #4f46e5; /* Indigo 600 */
         }
         .shadow-custom {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Add a subtle top border to the sticky header for separation */
+        #modern-header-v2 {
+            border-bottom: 1px solid rgba(243, 244, 246, 0.8); /* Border color for transparency */
+        }
+        
+        /* Dropdown transition (to override default hidden display) */
+        .group:hover .group-dropdown {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .group-dropdown {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none; /* Allows clicks outside when hidden */
+        }
+        .group:hover .group-dropdown {
+            pointer-events: auto; /* Re-enable clicks when visible */
+        }
+
+        /* Back to Top Button CSS */
+        #back-to-top {
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        #back-to-top.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+        }
+        #back-to-top:not(.hidden) {
+             opacity: 1;
+             transform: translateY(0);
         }
     </style>
 </head>
 <body>
 
-    <header id="modern-header-v2" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out bg-white/95 backdrop-blur-sm shadow-lg border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-4 md:py-5">
-            <div class="flex justify-start lg:w-0 lg:flex-1">
-                <a href="#" class="flex items-center space-x-2 group">
-                    <svg class="h-8 w-8 text-indigo-600 group-hover:text-pink-500 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                    </svg>
-                    <span class="text-3xl font-extrabold text-gray-900 font-lexend tracking-tighter transition duration-300 group-hover:text-indigo-600">Jith-tech</span>
-                </a>
-            </div>
-
-            <nav class="hidden md:flex space-x-8 text-gray-700 font-medium font-inter">
-                <a href="#home" class="relative group py-2 transition duration-150 hover:text-indigo-600">
-                    Home
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                </a>
-                <a href="#about" class="relative group py-2 transition duration-150 hover:text-indigo-600">
-                    About
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                </a>
-                
-                <div class="relative group">
-                    <button class="flex items-center py-2 transition duration-150 hover:text-indigo-600 focus:outline-none">
-                        Services 
-                        <svg class="ml-1 h-5 w-5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+    <header id="modern-header-v2" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4 md:py-5">
+                <div class="flex justify-start lg:w-0 lg:flex-1">
+                    <a href="index.html" class="flex items-center space-x-2 group">
+                        <svg class="h-8 w-8 text-indigo-600 group-hover:text-pink-500 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                         </svg>
-                    </button>
-                    <div class="absolute z-10 hidden group-hover:block w-48 mt-2 -ml-4 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5 py-1 transition duration-300 ease-out transform opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
-                        <a href="#services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">Web Dev</a>
-                        <a href="#services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">App Dev</a>
-                        <a href="#services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">Consulting</a>
+                        <span class="text-3xl font-extrabold text-gray-900 font-lexend tracking-tighter transition duration-300 group-hover:text-indigo-600">Jith-tech</span>
+                    </a>
+                </div>
+    
+                <nav class="hidden md:flex space-x-10 text-gray-600 font-medium font-inter">
+                    <a href="#home" class="relative group py-2 transition duration-150 hover:text-indigo-600">
+                        Home
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                    </a>
+                    <a href="#about" class="relative group py-2 transition duration-150 hover:text-indigo-600">
+                        About
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                    </a>
+    
+                    <div class="relative group">
+                        <button class="flex items-center py-2 transition duration-150 hover:text-indigo-600 focus:outline-none">
+                            Services 
+                            <svg class="ml-1 h-5 w-5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="group-dropdown absolute z-10 hidden w-48 mt-2 -ml-4 rounded-xl shadow-2xl bg-white ring-1 ring-black ring-opacity-5 py-2">
+                            <a href="#services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition duration-150">Web & App Development</a>
+                            <a href="#services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition duration-150">Cloud & DevOps</a>
+                            <a href="#services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition duration-150">Data & AI Consulting</a>
+                        </div>
+                    </div>
+    
+                    <a href="#contact" class="relative group py-2 transition duration-150 hover:text-indigo-600">
+                        Contact
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                    </a>
+                </nav>
+    
+                <div class="flex items-center justify-end md:flex-1 lg:w-0 space-x-4">
+                    <!-- Login Button -->
+                    <a href="login.html" id="login-btn" class="px-4 py-2 text-base font-medium text-gray-700 rounded-full hover:text-indigo-600 transition duration-150 border border-transparent hover:bg-gray-50">
+                        Login
+                    </a>
+    
+                    <!-- Register Button -->
+                    <a href="register.html" class="hidden lg:inline-flex whitespace-nowrap items-center justify-center px-6 py-2.5 border border-transparent rounded-full shadow-lg text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition duration-300 transform hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Register
+                    </a>
+    
+                    <!-- Logout Button (Initially Hidden) -->
+                    <a href="logout.html" id="logout-btn" class="px-4 py-2 text-base font-medium text-gray-700 rounded-full hover:text-indigo-600 transition duration-150 border border-transparent hover:bg-gray-50 hidden">
+                        Logout
+                    </a>
+    
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button-v2" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition duration-150">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path id="menu-icon-v2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
-
-                <a href="#contact" class="relative group py-2 transition duration-150 hover:text-indigo-600">
-                    Contact
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                </a>
-            </nav>
-
-            <div class="flex items-center justify-end md:flex-1 lg:w-0 space-x-4">
-                
-                <button class="p-2 text-gray-500 hover:text-indigo-600 transition duration-150 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </button>
-                
-                <button class="p-2 text-gray-500 hover:text-indigo-600 transition duration-150 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                </button>
-
-                <a href="#contact" class="hidden lg:inline-flex whitespace-nowrap items-center justify-center px-6 py-2.5 border border-transparent rounded-full shadow-lg text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition duration-300 transform hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Start a Project
-                </a>
-                
-                <div class="md:hidden">
-                    <button id="mobile-menu-button-v2" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition duration-150">
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path id="menu-icon-v2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
             </div>
         </div>
-    </div>
-
-    <div id="mobile-menu-v2" class="hidden md:hidden absolute w-full bg-white shadow-xl">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#home" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-white hover:bg-indigo-600 transition duration-150">Home</a>
-            <a href="#about" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-white hover:bg-indigo-600 transition duration-150">About</a>
-            <a href="#services" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-white hover:bg-indigo-600 transition duration-150">Services</a>
-            <a href="#contact" class="block px-3 py-2 rounded-lg text-base font-medium text-white bg-indigo-600 mt-2 hover:bg-indigo-700 transition duration-150 text-center">Start a Project</a>
+    
+        <!-- Mobile Menu -->
+        <div id="mobile-menu-v2" class="hidden md:hidden absolute w-full bg-white shadow-xl">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-white hover:bg-indigo-600 transition duration-150">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-white hover:bg-indigo-600 transition duration-150">About</a>
+                <a href="#services" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-white hover:bg-indigo-600 transition duration-150">Services</a>
+                <a href="login.html" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-white hover:bg-indigo-600 transition duration-150">Login</a>
+                <a href="register.html" class="block px-3 py-2 rounded-lg text-base font-medium text-white bg-indigo-600 mt-2 hover:bg-indigo-700 transition duration-150 text-center">Register</a>
+                <a href="#contact" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-white hover:bg-indigo-600 transition duration-150">Contact</a>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
+    
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyB0c89IeqVrz8aJ9BMX6eLQh6tmrLwdD_E",
+            authDomain: "myweb-336bd.firebaseapp.com",
+            projectId: "myweb-336bd",
+            storageBucket: "myweb-336bd.firebasestorage.app",
+            messagingSenderId: "720945527691",
+            appId: "1:720945527691:web:865c08bf46f7562963cd8e"
+        };
+        firebase.initializeApp(firebaseConfig);
+    
+        const auth = firebase.auth();
+    
+        // Debugging: Log when auth state changes
+        auth.onAuthStateChanged((user) => {
+            console.log('User state changed: ', user);  // This will show if auth state changes
+    
+            const loginBtn = document.getElementById('login-btn');
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            if (user) {
+                // User is logged in
+                console.log('User is logged in');
+                loginBtn.classList.add('hidden');
+                logoutBtn.classList.remove('hidden');
+            } else {
+                // User is not logged in
+                console.log('No user logged in');
+                loginBtn.classList.remove('hidden');
+                logoutBtn.classList.add('hidden');
+            }
+        });
+    </script>
+    
 
 <main>
-    <section id="home" class="py-20 md:py-32 bg-gray-50 pt-[120px] lg:pt-[150px]"> 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
-                Driving <span class="text-accent">Digital Transformation</span>
+    <section id="home" class="py-20 md:py-32 bg-indigo-50/50 pt-[120px] lg:pt-[150px] relative overflow-hidden"> 
+        <div class="absolute inset-0 z-0 opacity-20" style="background-image: radial-gradient(circle at top left, #ffffff, transparent 50%), radial-gradient(circle at bottom right, #e0e7ff, transparent 50%);"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-lexend tracking-tight text-gray-900 leading-snug">
+                Driving <span class="text-accent bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">Digital Transformation</span>
             </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
-                We empower businesses with strategic technology solutions and world-class consulting services to achieve unparalleled growth.
+            <p class="mt-6 max-w-3xl mx-auto text-xl text-gray-600">
+                We empower businesses with strategic technology solutions and **world-class consulting** services to achieve unparalleled growth and innovation.
             </p>
-            <div class="mt-10 flex justify-center space-x-3">
-                <a href="#services" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-accent hover:bg-indigo-700 transition duration-300 shadow-custom">
+            <div class="mt-12 flex justify-center space-x-4">
+                <a href="#services" class="inline-flex items-center justify-center px-10 py-3.5 border border-transparent text-lg font-bold rounded-full text-white bg-accent hover:bg-indigo-700 transition duration-300 shadow-xl shadow-indigo-300/50 transform hover:-translate-y-1">
                     Explore Our Services
                 </a>
-                <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-100 transition duration-300 shadow-custom">
+                <a href="#contact" class="inline-flex items-center justify-center px-10 py-3.5 border border-indigo-300 text-lg font-semibold rounded-full text-indigo-700 bg-white hover:bg-indigo-50 transition duration-300 shadow-lg">
                     Get in Touch
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-16 md:py-24 bg-white">
+    <section id="stats" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
+                
+                <div class="p-4">
+                    <p class="font-lexend text-4xl sm:text-5xl font-extrabold text-accent" id="stat-projects">0</p>
+                    <p class="mt-2 text-lg font-medium text-gray-500">Projects Completed</p>
+                </div>
+
+                <div class="p-4">
+                    <p class="font-lexend text-4xl sm:text-5xl font-extrabold text-accent" id="stat-experience">0</p>
+                    <p class="mt-2 text-lg font-medium text-gray-500">Years Experience</p>
+                </div>
+
+                <div class="p-4">
+                    <p class="font-lexend text-4xl sm:text-5xl font-extrabold text-accent" id="stat-clients">0</p>
+                    <p class="mt-2 text-lg font-medium text-gray-500">Happy Clients</p>
+                </div>
+                
+                <div class="p-4">
+                    <p class="font-lexend text-4xl sm:text-5xl font-extrabold text-accent" id="stat-rating">0</p>
+                    <p class="mt-2 text-lg font-medium text-gray-500">Average Rating</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 md:py-28 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h2 class="text-base text-accent font-semibold tracking-wide uppercase">About Me</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                <h2 class="text-lg text-accent font-bold tracking-wider uppercase">About Me</h2>
+                <p class="mt-2 text-4xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-5xl font-lexend">
                     Hello, I'm Sarjith - A Passionate Developer
                 </p>
             </div>
 
-            <div class="mt-12 flex flex-col lg:flex-row items-center justify-between">
-                <div class="lg:w-1/3"></div>
-
-                <div class="lg:w-2/3 mt-8 lg:mt-0 lg:pl-16 text-center lg:text-left">
-                    <p class="text-lg text-gray-500">
-                        I'm a passionate web developer with expertise in building dynamic websites and applications. I specialize in technologies like HTML, CSS, JavaScript, and **Three.js**. I'm also learning new technologies to enhance my skills and keep up with industry trends.
+            <div class="mt-16 flex flex-col lg:flex-row items-center justify-between">
+                <div class="lg:w-1/3 flex justify-center lg:justify-start mb-8 lg:mb-0">
+                    <div class="w-64 h-64 rounded-full overflow-hidden shadow-2xl ring-4 ring-indigo-400 ring-offset-8 ring-offset-gray-50 bg-gray-200">
+                        <img src="image.png" 
+                            alt="Sarjith's Profile Picture" 
+                            class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="lg:w-2/3 lg:pl-20 text-center lg:text-left">
+                    <p class="text-xl text-gray-600 leading-relaxed">
+                        I'm a passionate web developer with expertise in building dynamic websites and applications. I specialize in core technologies like **HTML, CSS, JavaScript**, and advanced frameworks. My true passion lies in cutting-edge fields, particularly developing immersive 3D experiences using **Three.js**. I am relentlessly focused on continuous learning to enhance my skills and stay ahead of industry trends.
                     </p>
-                    <ul class="mt-6 space-y-4 text-gray-700">
-                        <li class="flex items-start">
-                            <svg class="flex-shrink-0 h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span class="ml-3">**Web Development:** Building responsive and interactive websites.</span>
+                    <ul class="mt-10 space-y-5 text-gray-700">
+                        <li class="flex items-start lg:items-center">
+                            <svg class="flex-shrink-0 h-6 w-6 text-accent mt-0.5 lg:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.27a11.97 11.97 0 010 16.533C17.653 21.604 14.184 23 12 23c-2.184 0-5.653-1.396-8.618-4.27a11.97 11.97 0 010-16.533C6.347 2.396 9.816 1 12 1c2.184 0 5.653 1.396 8.618 4.27z"></path></svg>
+                            <span class="ml-4 text-lg">**Responsive Web Development:** Building visually stunning and interactive websites that work everywhere.</span>
                         </li>
-                        <li class="flex items-start">
-                            <svg class="flex-shrink-0 h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span class="ml-3">**3D Web Apps:** Using Three.js to create immersive 3D experiences.</span>
+                        <li class="flex items-start lg:items-center">
+                            <svg class="flex-shrink-0 h-6 w-6 text-accent mt-0.5 lg:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.27a11.97 11.97 0 010 16.533C17.653 21.604 14.184 23 12 23c-2.184 0-5.653-1.396-8.618-4.27a11.97 11.97 0 010-16.533C6.347 2.396 9.816 1 12 1c2.184 0 5.653 1.396 8.618 4.27z"></path></svg>
+                            <span class="ml-4 text-lg">**3D Web Applications:** Crafting immersive, high-performance 3D experiences for the modern browser using Three.js.</span>
                         </li>
-                        <li class="flex items-start">
-                            <svg class="flex-shrink-0 h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span class="ml-3">**Continuous Learning:** Always expanding my knowledge with new tech stacks.</span>
+                        <li class="flex items-start lg:items-center">
+                            <svg class="flex-shrink-0 h-6 w-6 text-accent mt-0.5 lg:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.27a11.97 11.97 0 010 16.533C17.653 21.604 14.184 23 12 23c-2.184 0-5.653-1.396-8.618-4.27a11.97 11.97 0 010-16.533C6.347 2.396 9.816 1 12 1c2.184 0 5.653 1.396 8.618 4.27z"></path></svg>
+                            <span class="ml-4 text-lg">**Agile & Quality Focus:** Dedicated to delivering robust, clean code through agile methodologies.</span>
                         </li>
                     </ul>
                 </div>
@@ -169,70 +276,119 @@
         </div>
     </section>
 
-    <section id="services" class="py-16 md:py-24 bg-gray-50">
+    <section id="services" class="py-20 md:py-28 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h2 class="text-base text-accent font-semibold tracking-wide uppercase">What We Offer</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                <h2 class="text-lg text-accent font-bold tracking-wider uppercase">What We Offer</h2>
+                <p class="mt-2 text-4xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-5xl font-lexend">
                     Our Core Areas of Expertise
                 </p>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-                    From cutting-edge cloud infrastructure to bespoke software development, we cover the full spectrum of modern digital needs.
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
+                    From cutting-edge cloud infrastructure to bespoke software development, we cover the full spectrum of modern digital needs with strategic insight.
                 </p>
             </div>
 
-            <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div class="mt-16 grid grid-cols-1 gap-10 md:grid-cols-3">
 
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-full bg-accent/10 text-accent">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.89 0A4.002 4.002 0 003 15z"></path></svg>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-xl hover:shadow-3xl transition duration-500 transform hover:-translate-y-2 border border-gray-100">
+                    <div class="flex items-center justify-center h-14 w-14 rounded-full bg-indigo-100 text-accent">
+                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.89 0A4.002 4.002 0 003 15z"></path></svg>
                     </div>
-                    <h3 class="mt-6 text-xl font-bold text-gray-900">Cloud & DevOps</h3>
-                    <p class="mt-4 text-gray-500">
-                        Accelerate deployment and enhance security with scalable cloud architecture (AWS, Azure, GCP) and automated DevOps pipelines.
+                    <h3 class="mt-6 text-2xl font-extrabold text-gray-900 font-lexend">Cloud & DevOps</h3>
+                    <p class="mt-4 text-gray-600 leading-relaxed">
+                        Accelerate deployment and enhance security with scalable cloud architecture (AWS, Azure, GCP) and automated, efficient DevOps pipelines.
                     </p>
                 </div>
 
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-full bg-accent/10 text-accent">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-xl hover:shadow-3xl transition duration-500 transform hover:-translate-y-2 border border-gray-100">
+                    <div class="flex items-center justify-center h-14 w-14 rounded-full bg-indigo-100 text-accent">
+                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                     </div>
-                    <h3 class="mt-6 text-xl font-bold text-gray-900">Custom Software</h3>
-                    <p class="mt-4 text-gray-500">
-                        Build tailored, high-performance web and mobile applications designed to meet your unique business requirements and user needs.
+                    <h3 class="mt-6 text-2xl font-extrabold text-gray-900 font-lexend">Custom Software</h3>
+                    <p class="mt-4 text-gray-600 leading-relaxed">
+                        Build tailored, high-performance web, mobile, and 3D applications designed to meet your unique business requirements and user needs perfectly.
                     </p>
                 </div>
 
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-full bg-accent/10 text-accent">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l-2-2m2 2l2 2m-2-2h8m-2 2l-2-2m2 2l2 2M12 20h9M3 20h9M12 4v16m-4-4H4a2 2 0 01-2-2v-4a2 2 0 012-2h4m-4-4h4a2 2 0 002-2V4a2 2 0 00-2-2H4a2 2 0 00-2 2v4"></path></svg>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-xl hover:shadow-3xl transition duration-500 transform hover:-translate-y-2 border border-gray-100">
+                    <div class="flex items-center justify-center h-14 w-14 rounded-full bg-indigo-100 text-accent">
+                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l-2-2m2 2l2 2m-2-2h8m-2 2l-2-2m2 2l2 2M12 20h9M3 20h9M12 4v16m-4-4H4a2 2 0 01-2-2v-4a2 2 0 012-2h4m-4-4h4a2 2 0 002-2V4a2 2 0 00-2-2H4a2 2 0 00-2 2v4"></path></svg>
                     </div>
-                    <h3 class="mt-6 text-xl font-bold text-gray-900">Data Strategy & AI</h3>
-                    <p class="mt-4 text-gray-500">
-                        Leverage the power of your data with advanced analytics, business intelligence, and integration of generative AI solutions.
+                    <h3 class="mt-6 text-2xl font-extrabold text-gray-900 font-lexend">Data Strategy & AI</h3>
+                    <p class="mt-4 text-gray-600 leading-relaxed">
+                        Leverage the power of your data with advanced analytics, business intelligence, and seamless integration of modern generative AI solutions.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-16 md:py-24 bg-white">
+    <section id="testimonials" class="py-20 md:py-28 bg-indigo-50/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-lg text-accent font-bold tracking-wider uppercase">Client Success Stories</h2>
+                <p class="mt-2 text-4xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-5xl font-lexend">
+                    What Our Partners Say
+                </p>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3">
+                
+                <div class="bg-white p-8 rounded-2xl shadow-2xl border-t-4 border-accent">
+                    <p class="text-3xl font-lexend text-gray-800 mb-4">“Jith-tech delivered beyond expectation!”</p>
+                    <p class="text-gray-600 italic leading-relaxed">
+                        "The migration to the cloud was seamless and incredibly fast. The DevOps pipeline implemented by Sarjith's team has cut our deployment time by over 60%."
+                    </p>
+                    <div class="mt-6 border-t pt-4">
+                        <p class="font-semibold text-gray-900">John Smith</p>
+                        <p class="text-sm text-indigo-600">CTO, Global Finance Corp</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-2xl border-t-4 border-accent">
+                    <p class="text-3xl font-lexend text-gray-800 mb-4">“True experts in 3D visualization.”</p>
+                    <p class="text-gray-600 italic leading-relaxed">
+                        "We needed a complex product configurator in Three.js, and they built it perfectly. The performance is flawless across all browsers. Highly recommend."
+                    </p>
+                    <div class="mt-6 border-t pt-4">
+                        <p class="font-semibold text-gray-900">Maria Lopez</p>
+                        <p class="text-sm text-indigo-600">Director of Product, DesignHub</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-2xl border-t-4 border-accent">
+                    <p class="text-3xl font-lexend text-gray-800 mb-4">“Strategic guidance on AI integration.”</p>
+                    <p class="text-gray-600 italic leading-relaxed">
+                        "Their data strategy consulting helped us unlock new revenue streams using generative AI. The team is professional, knowledgeable, and reliable."
+                    </p>
+                    <div class="mt-6 border-t pt-4">
+                        <p class="font-semibold text-gray-900">David Chang</p>
+                        <p class="text-sm text-indigo-600">CEO, Innovate Retail</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 md:py-28 bg-white">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-base text-accent font-semibold tracking-wide uppercase">Get Started</h2>
-            <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                Send Us a Message
+            <h2 class="text-lg text-accent font-bold tracking-wider uppercase">Let's Connect</h2>
+            <p class="mt-2 text-4xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-5xl font-lexend">
+                Start Your Project Today
             </p>
-            <p class="mt-4 text-xl text-gray-500">
-                Fill out the form below and we will contact you shortly.
+            <p class="mt-4 text-xl text-gray-600">
+                Fill out the form below and a senior consultant will contact you within one business day to discuss your needs.
             </p>
 
-            <form id="contactForm" class="mt-10 space-y-6">
+            <form id="contactForm" class="mt-12 space-y-6 bg-gray-50 p-8 rounded-2xl shadow-xl border border-gray-100">
                 <div>
                     <input 
                         type="text" 
                         id="name" 
-                        placeholder="Your Name"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-accent focus:border-accent"
+                        name="name"
+                        placeholder="Your Full Name"
+                        class="w-full px-5 py-3 border border-gray-300 rounded-xl shadow-inner text-lg placeholder-gray-400 focus:ring-2 focus:ring-accent focus:border-accent transition duration-150"
                         required>
                 </div>
 
@@ -240,72 +396,120 @@
                     <input 
                         type="email" 
                         id="email" 
-                        placeholder="Your Email"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-accent focus:border-accent"
+                        name="email"
+                        placeholder="Your Professional Email"
+                        class="w-full px-5 py-3 border border-gray-300 rounded-xl shadow-inner text-lg placeholder-gray-400 focus:ring-2 focus:ring-accent focus:border-accent transition duration-150"
                         required>
                 </div>
 
                 <div>
                     <textarea 
                         id="message" 
-                        rows="5" 
-                        placeholder="Your Message"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-accent focus:border-accent"
+                        name="message"
+                        rows="6" 
+                        placeholder="Tell us about your project or challenge..."
+                        class="w-full px-5 py-3 border border-gray-300 rounded-xl shadow-inner text-lg placeholder-gray-400 focus:ring-2 focus:ring-accent focus:border-accent transition duration-150"
                         required></textarea>
                 </div>
 
                 <button 
                     type="submit"
-                    class="w-full inline-flex items-center justify-center px-8 py-3 font-medium rounded-lg text-white bg-accent hover:bg-indigo-700 transition duration-300 shadow-custom">
+                    class="w-full inline-flex items-center justify-center px-8 py-3.5 text-xl font-extrabold rounded-xl text-white bg-accent hover:bg-indigo-700 transition duration-300 shadow-lg shadow-indigo-400/50 transform hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-indigo-300">
                     Send Message
                 </button>
 
-                <p id="formStatus" class="text-center text-lg font-medium mt-4"></p>
+                <p id="formStatus" class="text-center text-lg font-semibold pt-2"></p>
             </form>
         </div>
     </section>
 </main>
 
-    <footer class="bg-gray-800 text-white">
+    <footer class="bg-gray-900 text-white">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="md:flex md:justify-between md:items-center">
-                <div class="text-center md:text-left">
-                    <p class="text-sm text-gray-400">&copy; 2025 Jith-tech Solutions. All rights reserved.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold font-lexend mb-4 text-indigo-400">Jith-tech</h4>
+                    <p class="text-gray-400 text-sm">Driving your success through innovative technology and expert consulting.</p>
                 </div>
-                <div class="mt-8 md:mt-0 flex justify-center md:justify-end space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-accent transition duration-150">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-accent transition duration-150">Terms of Service</a>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-gray-400 hover:text-accent transition duration-150">About Us</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-accent transition duration-150">Services</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-accent transition duration-150">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Support</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition duration-150">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition duration-150">Client Portal</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition duration-150">Legal</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Contact</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="mailto:info@jith-tech.com" class="hover:text-accent transition duration-150">sarjithsarjith2008@gmail.com</a></li>
+                        <li><a href="#contact" class="hover:text-accent transition duration-150">Request a Quote</a></li>
+                        <li><a href="#" class="hover:text-accent transition duration-150">Social Media</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-700 md:flex md:justify-between md:items-center">
+                <div class="text-center md:text-left">
+                    <p class="text-sm text-gray-500">&copy; 2025 Jith-tech Solutions. All rights reserved.</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex justify-center md:justify-end space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-accent transition duration-150">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-accent transition duration-150">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <button id="back-to-top" class="hidden fixed bottom-6 right-6 p-3 bg-accent text-white rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 z-50">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     
     <script>
+        // --- JAVASCRIPT LOGIC ---
+        
+        // Target values for the stats counter
+        const STATS_DATA = {
+            'stat-projects': { target: 110, duration: 2000 },
+            'stat-experience': { target: 5, duration: 1500 },
+            'stat-clients': { target: 65, duration: 2000 },
+            'stat-rating': { target: 4.8, duration: 2500 }
+        };
+
         document.addEventListener('DOMContentLoaded', function () {
             const header = document.getElementById('modern-header-v2');
-            // FIX: Updated selector ID to match the modern header's button ID
             const mobileButton = document.getElementById('mobile-menu-button-v2'); 
-            // FIX: Updated selector ID to match the modern header's menu ID
             const mobileMenu = document.getElementById('mobile-menu-v2');
             const menuIcon = document.getElementById('menu-icon-v2');
-            
-            // Header scroll logic
+            const backToTopButton = document.getElementById('back-to-top');
+
+            // --- Header scroll logic ---
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
-                    header.classList.remove('bg-white/95', 'shadow-lg');
-                    header.classList.add('bg-white', 'shadow-2xl', 'border-indigo-100');
+                    header.classList.remove('shadow-md', 'bg-white/95');
+                    header.classList.add('shadow-xl', 'bg-white');
+                    backToTopButton.classList.remove('hidden');
                 } else {
-                    header.classList.remove('bg-white', 'shadow-2xl', 'border-indigo-100');
-                    header.classList.add('bg-white/95', 'shadow-lg');
+                    header.classList.remove('shadow-xl', 'bg-white');
+                    header.classList.add('shadow-md', 'bg-white/95');
+                    backToTopButton.classList.add('hidden');
                 }
             });
 
-
-            // Mobile Menu Toggle Logic
+            // --- Mobile Menu Toggle Logic ---
             const toggleMenu = () => {
-                // Check if the menu is visible by looking for the 'hidden' class
                 const isHidden = mobileMenu.classList.toggle('hidden');
                 
                 // Icon transformation (Hamburger to X and back)
@@ -324,9 +528,65 @@
             const links = mobileMenu.querySelectorAll('a');
             links.forEach(link => {
                 link.addEventListener('click', () => {
-                    setTimeout(toggleMenu, 300);
+                    requestAnimationFrame(() => {
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            toggleMenu();
+                        }
+                    });
                 });
             });
+
+            // --- Back to Top Logic ---
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // --- Stats Counter Logic (Intersection Observer) ---
+            const startCounter = (entry, observer) => {
+                if (entry.isIntersecting) {
+                    Object.keys(STATS_DATA).forEach(id => {
+                        const element = document.getElementById(id);
+                        if (!element.getAttribute('data-counted')) {
+                            animateValue(element, STATS_DATA[id].target, STATS_DATA[id].duration);
+                            element.setAttribute('data-counted', 'true');
+                        }
+                    });
+                    observer.unobserve(entry.target);
+                }
+            };
+
+            const animateValue = (obj, target, duration) => {
+                let start = 0;
+                let isFloat = target % 1 !== 0;
+                let step = target / (duration / 10);
+                
+                const stepFunction = (timestamp) => {
+                    if (!start) start = timestamp;
+                    const progress = timestamp - start;
+                    let value = (progress / duration) * target;
+
+                    if (value >= target) {
+                         value = target;
+                    }
+                    
+                    obj.textContent = isFloat ? value.toFixed(1) : Math.floor(value);
+                    
+                    if (progress < duration) {
+                        requestAnimationFrame(stepFunction);
+                    }
+                };
+                requestAnimationFrame(stepFunction);
+            };
+
+            const statsSection = document.getElementById('stats');
+            const statsObserver = new IntersectionObserver(([entry]) => startCounter(entry, statsObserver), {
+                root: null,
+                threshold: 0.5, // Trigger when 50% of the section is visible
+            });
+
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
 
             // --- EmailJS Logic ---
             // Initialize EmailJS with public key
@@ -337,33 +597,32 @@
             document.getElementById("contactForm").addEventListener("submit", function (e) {
                 e.preventDefault();
         
-                // Get form elements
                 const name = document.getElementById("name").value;
                 const email = document.getElementById("email").value;
                 const message = document.getElementById("message").value;
                 const status = document.getElementById("formStatus");
-        
-                // Clear any previous status message
+                const submitButton = e.target.querySelector('button[type="submit"]');
+
                 status.textContent = '';
                 
-                // Simple validation: check if all fields are filled
                 if (!name || !email || !message) {
                     status.textContent = "All fields are required!";
-                    status.style.color = "red";
-                    return; // Stop submission if any field is empty
+                    status.style.color = "#ef4444"; 
+                    return; 
                 }
         
-                // Validate email format
                 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                 if (!emailRegex.test(email)) {
                     status.textContent = "Please enter a valid email address!";
-                    status.style.color = "red";
-                    return; // Stop submission if email is invalid
+                    status.style.color = "#ef4444"; 
+                    return; 
                 }
         
-                // If validation passes, show sending status
-                status.textContent = "Sending...";
-                status.style.color = "#4f46e5"; // Indigo color
+                // Disable button and show sending status
+                submitButton.disabled = true;
+                submitButton.textContent = "Sending...";
+                status.textContent = "Sending message...";
+                status.style.color = "#4f46e5"; 
         
                 const params = {
                     from_name: name,
@@ -371,22 +630,23 @@
                     message: message,
                 };
         
-                // Send email via EmailJS
                 // NOTE: Replace service_jsukh8p and template_r2fsw2h with your actual EmailJS credentials
                 emailjs.send("service_jsukh8p", "template_r2fsw2h", params)
                     .then(() => {
-                        // If email is sent successfully
                         status.textContent = "Message Sent Successfully! ✅";
-                        status.style.color = "green";
-                        document.getElementById("contactForm").reset(); // Reset form after success
+                        status.style.color = "#10b981"; 
+                        document.getElementById("contactForm").reset(); 
                         
-                        // Smooth scroll back to the contact section top (optional)
                         document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                        submitButton.disabled = false;
+                        submitButton.textContent = "Send Message";
+
                     }, (err) => {
-                        // If email failed to send
-                        status.textContent = "Failed to send message. Try again! ❌";
-                        status.style.color = "red";
+                        status.textContent = "Failed to send message. Please try again or contact us directly. ❌";
+                        status.style.color = "#ef4444"; 
                         console.error('EmailJS Error:', err);
+                        submitButton.disabled = false;
+                        submitButton.textContent = "Send Message";
                     });
             });
         });
