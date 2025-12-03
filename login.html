@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Jith-tech Solutions</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        // Define custom Tailwind colors/fonts in the config block
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-light': '#6366f1', // Indigo 500
+                        'primary-deep': '#4338ca', // Indigo 700 (Focus/Main color)
+                        'primary-dark': '#3730a3', // Indigo 800 (Hover/Darker color)
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Lexend', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        // Softer shadow for the transparent card
+                        '3xl': '0 20px 40px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght=700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom styles for modern background and high contrast */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Modern, tech-themed background image */
+            background-image: url('https://img.freepik.com/premium-vector/geometric-gradient-technology-background_23-2149110132.jpg?semt=ais_hybrid&w=740&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Background Overlay for strong contrast with the transparent form */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* Dark Blue/Black overlay for high contrast, slightly more transparent for background visibility */
+            background: rgba(0, 0, 0, 0.45); 
+            z-index: 0; 
+        }
+
+        /* Ensure form content is above the overlay */
+        .auth-container {
+            z-index: 10;
+            position: relative;
+        }
+
+        /* GLASSMORPHISM CARD STYLE 
+           1. Semi-transparent background (bg-white/10 in Tailwind)
+           2. Backdrop blur (backdrop-blur-md in Tailwind)
+           3. Light border for definition
+        */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.1); /* White with 10% opacity */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px); /* Safari support */
+            border: 1px solid rgba(255, 255, 255, 0.18); /* Light, subtle border */
+        }
+
+        /* Change input focus/placeholder styles for dark glass card */
+        .glass-input {
+            background-color: rgba(0, 0, 0, 0.2); /* Slightly darker input field */
+            color: #ffffff; /* White text for input */
+            border-color: rgba(255, 255, 255, 0.3); /* Lighter border */
+        }
+        .glass-input::placeholder {
+            color: rgba(255, 255, 255, 0.6); /* Light gray placeholder */
+        }
+        .glass-input:focus {
+             /* Focus color remains primary-deep (Indigo 700) */
+            border-color: #4338ca; 
+            box-shadow: 0 0 0 1px #4338ca;
+        }
+
+        /* Gradient Button Style for Sign In */
+        .btn-gradient {
+            background-image: linear-gradient(to right, #4f46e5 0%, #6366f1 100%); 
+            transition: all 0.3s ease;
+        }
+        .btn-gradient:hover {
+            background-image: linear-gradient(to right, #4338ca 0%, #4f46e5 100%); 
+            transform: translateY(-1px);
+        }
+        
+        .error-message { color: #f87171; font-size: 0.875rem; font-weight: 600;} /* Light red for dark background */
+    </style>
+</head>
+<body>
+
+    <div class="auth-container max-w-md w-full mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center mb-10">
+            <a href="index.html" class="inline-flex items-center space-x-3 group">
+                <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
+                <span class="text-4xl font-extrabold text-white font-heading tracking-tight">Jith-tech</span>
+            </a>
+            <h2 class="mt-8 text-3xl font-extrabold text-white font-heading">
+                 Welcome Back!
+            </h2>
+            <p class="mt-3 text-base text-gray-300">
+                New user? 
+                <a href="register.html" class="font-semibold text-white hover:text-primary-light transition duration-150 underline-offset-4 hover:underline">
+                    Create an account
+                </a>
+            </p>
+        </div>
+
+        <div class="p-10 rounded-3xl shadow-3xl glass-card">
+            <form id="loginForm" class="space-y-6">
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-200 mb-1">Email address</label>
+                    <div class="mt-1">
+                        <input id="email" name="email" type="email" autocomplete="email" required
+                            placeholder="e.g., you@company.com"
+                            class="appearance-none block w-full px-4 py-3.5 rounded-xl text-base transition duration-150 glass-input focus:outline-none focus:ring-primary-deep focus:border-primary-deep">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-200 mb-1">Password</label>
+                    <div class="mt-1 relative">
+                        <input id="password" name="password" type="password" autocomplete="current-password" required
+                            placeholder="••••••••"
+                            class="appearance-none block w-full px-4 py-3.5 rounded-xl text-base transition duration-150 glass-input focus:outline-none focus:ring-primary-deep focus:border-primary-deep">
+                        
+                        <svg id="password-toggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-300 cursor-pointer hover:text-primary-deep transition duration-150"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path id="eye-icon-path" stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.66 0-8.647-2.922-10-7 1.353-4.078 5.34-7 10-7 1.258 0 2.482.203 3.625.575M17.5 14.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path id="slash-icon-path" stroke-linecap="round" stroke-linejoin="round" d="M19.5 19.5l-15-15" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div id="error-message" class="error-message hidden pt-2 text-center"></div>
+
+                <div class="flex items-center justify-between pt-2">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-primary-deep border-gray-400 rounded focus:ring-primary-deep bg-transparent">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-200 font-medium">
+                            Keep me logged in
+                        </label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="#" class="font-semibold text-gray-300 hover:text-white transition duration-150">
+                            Forgot Password?
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit"
+                        class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-lg font-bold text-white btn-gradient focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 active:scale-[.99] transition duration-150">
+                        Sign In Securely
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyB0c89IeqVrz8aJ9BMX6eLQh6tmrLwdD_E",
+          authDomain: "myweb-336bd.firebaseapp.com",
+          projectId: "myweb-336bd",
+          storageBucket: "myweb-336bd.firebasestorage.app",
+          messagingSenderId: "720945527691",
+          appId: "1:720945527691:web:865c08bf46f7562963cd8e"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        
+        // Get Firebase Authentication instance
+        const auth = getAuth(app);
+        
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessageElement = document.getElementById('error-message');
+            errorMessageElement.classList.add('hidden'); // Clear previous errors
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log('Logged in as:', user.email);
+                    
+                    // Redirect to dashboard or home page
+                    window.location.href = "index.html";
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    errorMessageElement.textContent = getErrorMessage(errorCode);
+                    errorMessageElement.classList.remove('hidden');
+                });
+        });
+        
+        // Toggle password visibility logic
+        const passwordField = document.getElementById('password');
+        const passwordToggleIcon = document.getElementById('password-toggle');
+        const slashPath = document.getElementById('slash-icon-path');
+        
+        // Path data for open eye view (simplified)
+        const openEyePathD = "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"; 
+        // Path data for closed eye view (initial complex/slashed)
+        const closedEyePathD = "M13.875 18.825A10.05 10.05 0 0112 19c-4.66 0-8.647-2.922-10-7 1.353-4.078 5.34-7 10-7 1.258 0 2.482.203 3.625.575M17.5 14.5a3 3 0 11-6 0 3 3 0 016 0z";
+
+
+        passwordToggleIcon.addEventListener('click', function () {
+            if (passwordField.type === "password") {
+                // Show password (Open eye)
+                passwordField.type = "text";
+                passwordToggleIcon.classList.remove('text-gray-300');
+                passwordToggleIcon.classList.add('text-primary-light');
+                
+                // Change eye path to open and hide slash
+                document.getElementById('eye-icon-path').setAttribute("d", openEyePathD);
+                slashPath.style.display = 'none';
+
+            } else {
+                // Hide password (Closed eye with slash)
+                passwordField.type = "password";
+                passwordToggleIcon.classList.remove('text-primary-light');
+                passwordToggleIcon.classList.add('text-gray-300'); 
+                
+                // Change eye path to closed and show slash
+                document.getElementById('eye-icon-path').setAttribute("d", closedEyePathD);
+                slashPath.style.display = 'block';
+
+            }
+        });
+
+        // Function to return user-friendly error messages based on Firebase error codes
+        function getErrorMessage(errorCode) {
+            switch (errorCode) {
+                case 'auth/invalid-email':
+                    return '⚠️ Please enter a valid email address.';
+                case 'auth/user-disabled':
+                    return '🚫 This account has been disabled.';
+                case 'auth/user-not-found':
+                    return '❌ Account not found. Please check your email or register.';
+                case 'auth/wrong-password':
+                    return '🔑 Incorrect password. Please try again.';
+                default:
+                    return '🚨 An unexpected error occurred. Please try again.';
+            }
+        }
+    </script>
+
+</body>
+</html>
