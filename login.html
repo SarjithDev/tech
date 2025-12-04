@@ -47,6 +47,7 @@
             align-items: center;
             min-height: 100vh;
             position: relative;
+            color: #ffffff;
         }
         
         /* Background Overlay for strong contrast with the transparent form */
@@ -68,11 +69,7 @@
             position: relative;
         }
 
-        /* GLASSMORPHISM CARD STYLE 
-           1. Semi-transparent background (bg-white/10 in Tailwind)
-           2. Backdrop blur (backdrop-blur-md in Tailwind)
-           3. Light border for definition
-        */
+        /* GLASSMORPHISM CARD STYLE */
         .glass-card {
             background-color: rgba(255, 255, 255, 0.1); /* White with 10% opacity */
             backdrop-filter: blur(8px);
@@ -85,17 +82,18 @@
             background-color: rgba(0, 0, 0, 0.2); /* Slightly darker input field */
             color: #ffffff; /* White text for input */
             border-color: rgba(255, 255, 255, 0.3); /* Lighter border */
+            transition: all 0.15s ease;
         }
         .glass-input::placeholder {
             color: rgba(255, 255, 255, 0.6); /* Light gray placeholder */
         }
         .glass-input:focus {
              /* Focus color remains primary-deep (Indigo 700) */
-            border-color: #4338ca; 
-            box-shadow: 0 0 0 1px #4338ca;
+             border-color: #4338ca; 
+             box-shadow: 0 0 0 1px #4338ca;
         }
 
-        /* Gradient Button Style for Sign In */
+        /* Gradient Button Style for Sign In (Reverted to original gradient) */
         .btn-gradient {
             background-image: linear-gradient(to right, #4f46e5 0%, #6366f1 100%); 
             transition: all 0.3s ease;
@@ -119,7 +117,7 @@
                 <span class="text-4xl font-extrabold text-white font-heading tracking-tight">Jith-tech</span>
             </a>
             <h2 class="mt-8 text-3xl font-extrabold text-white font-heading">
-                 Welcome Back!
+                Welcome Back!
             </h2>
             <p class="mt-3 text-base text-gray-300">
                 New user? 
@@ -137,7 +135,7 @@
                     <div class="mt-1">
                         <input id="email" name="email" type="email" autocomplete="email" required
                             placeholder="e.g., you@company.com"
-                            class="appearance-none block w-full px-4 py-3.5 rounded-xl text-base transition duration-150 glass-input focus:outline-none focus:ring-primary-deep focus:border-primary-deep">
+                            class="appearance-none block w-full px-4 py-3.5 rounded-xl text-base glass-input focus:outline-none focus:ring-primary-deep focus:border-primary-deep">
                     </div>
                 </div>
 
@@ -146,7 +144,7 @@
                     <div class="mt-1 relative">
                         <input id="password" name="password" type="password" autocomplete="current-password" required
                             placeholder="••••••••"
-                            class="appearance-none block w-full px-4 py-3.5 rounded-xl text-base transition duration-150 glass-input focus:outline-none focus:ring-primary-deep focus:border-primary-deep">
+                            class="appearance-none block w-full px-4 py-3.5 rounded-xl text-base glass-input focus:outline-none focus:ring-primary-deep focus:border-primary-deep">
                         
                         <svg id="password-toggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-300 cursor-pointer hover:text-primary-deep transition duration-150"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -184,24 +182,21 @@
     </div>
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
         
-        // Your web app's Firebase configuration
+        // Your Firebase configuration
         const firebaseConfig = {
-          apiKey: "AIzaSyB0c89IeqVrz8aJ9BMX6eLQh6tmrLwdD_E",
-          authDomain: "myweb-336bd.firebaseapp.com",
-          projectId: "myweb-336bd",
-          storageBucket: "myweb-336bd.firebasestorage.app",
-          messagingSenderId: "720945527691",
-          appId: "1:720945527691:web:865c08bf46f7562963cd8e"
+            apiKey: "AIzaSyB0c89IeqVrz8aJ9BMX6eLQh6tmrLwdD_E",
+            authDomain: "myweb-336bd.firebaseapp.com",
+            projectId: "myweb-336bd",
+            storageBucket: "myweb-336bd.firebasestorage.app",
+            messagingSenderId: "720945527691",
+            appId: "1:720945527691:web:865c08bf46f7562963cd8e"
         };
         
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        
-        // Get Firebase Authentication instance
         const auth = getAuth(app);
         
         // Handle login form submission
@@ -212,7 +207,7 @@
             const password = document.getElementById('password').value;
             const errorMessageElement = document.getElementById('error-message');
             errorMessageElement.classList.add('hidden'); // Clear previous errors
-
+    
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
@@ -231,14 +226,14 @@
         // Toggle password visibility logic
         const passwordField = document.getElementById('password');
         const passwordToggleIcon = document.getElementById('password-toggle');
+        const eyePath = document.getElementById('eye-icon-path');
         const slashPath = document.getElementById('slash-icon-path');
         
         // Path data for open eye view (simplified)
         const openEyePathD = "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"; 
         // Path data for closed eye view (initial complex/slashed)
         const closedEyePathD = "M13.875 18.825A10.05 10.05 0 0112 19c-4.66 0-8.647-2.922-10-7 1.353-4.078 5.34-7 10-7 1.258 0 2.482.203 3.625.575M17.5 14.5a3 3 0 11-6 0 3 3 0 016 0z";
-
-
+    
         passwordToggleIcon.addEventListener('click', function () {
             if (passwordField.type === "password") {
                 // Show password (Open eye)
@@ -247,9 +242,9 @@
                 passwordToggleIcon.classList.add('text-primary-light');
                 
                 // Change eye path to open and hide slash
-                document.getElementById('eye-icon-path').setAttribute("d", openEyePathD);
+                eyePath.setAttribute("d", openEyePathD);
                 slashPath.style.display = 'none';
-
+    
             } else {
                 // Hide password (Closed eye with slash)
                 passwordField.type = "password";
@@ -257,12 +252,11 @@
                 passwordToggleIcon.classList.add('text-gray-300'); 
                 
                 // Change eye path to closed and show slash
-                document.getElementById('eye-icon-path').setAttribute("d", closedEyePathD);
+                eyePath.setAttribute("d", closedEyePathD);
                 slashPath.style.display = 'block';
-
             }
         });
-
+    
         // Function to return user-friendly error messages based on Firebase error codes
         function getErrorMessage(errorCode) {
             switch (errorCode) {
@@ -274,11 +268,14 @@
                     return '❌ Account not found. Please check your email or register.';
                 case 'auth/wrong-password':
                     return '🔑 Incorrect password. Please try again.';
+                case 'auth/network-request-failed':
+                    return '🔌 Network error. Please check your connection and try again.';
                 default:
                     return '🚨 An unexpected error occurred. Please try again.';
             }
         }
     </script>
+    
 
 </body>
 </html>
