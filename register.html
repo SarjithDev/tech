@@ -13,17 +13,20 @@
             theme: {
                 extend: {
                     colors: {
-                        'primary-light': '#6366f1', // Indigo 500
-                        'primary-deep': '#4338ca', // Indigo 700 (Focus color)
-                        'primary-dark': '#3730a3', // Indigo 800 (Hover/Darker color)
+                        // Cyberpunk/Neon Palette
+                        'bg-cyber': '#08001a',       // Ultra deep dark purple/black
+                        'card-cyber': '#10002b',     // Slightly lighter dark card base
+                        'neon-primary': '#00e0ff',   // Electric Cyan/Blue
+                        'neon-secondary': '#ff00a0', // Neon Pink/Magenta
+                        'neon-accent': '#6f00ff',    // Deep Violet for gradients
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         heading: ['Lexend', 'sans-serif'],
                     },
                     boxShadow: {
-                        // Softer shadow for the transparent card
-                        '3xl': '0 20px 40px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.1)',
+                        // Neon Glow effect
+                        'neon-glow': '0 0 15px rgba(0, 224, 255, 0.5), 0 0 5px rgba(255, 0, 160, 0.2)',
                     }
                 }
             }
@@ -33,22 +36,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght=700;800;900&display=swap" rel="stylesheet">
     
     <style>
-        /* Custom styles for professional look */
+        /* Custom styles for the Cyber-Tech theme */
         body {
             font-family: 'Inter', sans-serif;
-            background-image: url('https://previews.123rf.com/images/mazirama/mazirama1502/mazirama150200268/36497171-registration-text-concept-on-green-digital-world-map-background.jpg');
+            background-color: var(--tw-color-bg-cyber); 
+            
+            /* --- NEW BACKGROUND IMAGE STYLE --- */
+            background-image: url('https://getwallpapers.com/wallpaper/full/6/5/4/1420574-hacker-background-1920x1080-laptop.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            position: relative;
             
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            position: relative;
+            color: #e0e7ff; /* Light, cool text */
         }
-        
-        /* Background Overlay: Stronger contrast for the transparent form */
+
+        /* Overlay to darken the background image and maintain high contrast */
         body::before {
             content: '';
             position: absolute;
@@ -56,105 +63,105 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* Dark Blue/Black overlay for high contrast, slightly more transparent for background visibility */
-            background: rgba(0, 0, 0, 0.45); 
-            z-index: 0; 
+            /* Deep black/purple overlay */
+            background: rgba(0, 0, 0, 0.75); 
+            z-index: 1; 
         }
 
-        /* Ensure content is above the overlay */
+        /* Ensure content and form are above the overlay */
         .auth-container {
             z-index: 10;
             position: relative;
         }
 
-        /* GLASSMORPHISM CARD STYLE */
-        .glass-card {
-            background-color: rgba(255, 255, 255, 0.1); /* White with 10% opacity */
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px); /* Safari support */
-            border: 1px solid rgba(255, 255, 255, 0.18); /* Light, subtle border */
+        /* Input Field Styling */
+        .cyber-input {
+            background-color: #00000080; /* Transparent Black */
+            color: #ffffff; 
+            border: 1px solid #ffffff30; /* Very subtle white border */
+            transition: all 0.2s ease;
         }
-
-        /* Change input focus/placeholder styles for dark glass card */
-        .glass-input {
-            background-color: rgba(0, 0, 0, 0.2); /* Slightly darker input field */
-            color: #ffffff; /* White text for input */
-            border-color: rgba(255, 255, 255, 0.3); /* Lighter border */
+        .cyber-input::placeholder {
+            color: #9ca3af; /* Gray placeholder */
         }
-        .glass-input::placeholder {
-            color: rgba(255, 255, 255, 0.6); /* Light gray placeholder */
-        }
-        .glass-input:focus {
-             /* Focus color remains primary-deep (Indigo 700) */
-            border-color: #4338ca; 
-            box-shadow: 0 0 0 1px #4338ca;
-        }
-
-        /* Gradient Button Style for Sign Up */
-        .btn-gradient {
-            background-image: linear-gradient(to right, #4f46e5 0%, #6366f1 100%); /* Tailwind Indigo 600 to 500 */
-            transition: all 0.3s ease;
-        }
-        .btn-gradient:hover {
-            background-image: linear-gradient(to right, #4338ca 0%, #4f46e5 100%); /* Deeper Indigo on hover */
-            transform: translateY(-1px);
+        .cyber-input:focus {
+            outline: none;
+            border-color: var(--tw-color-neon-primary); /* Neon blue border */
+            box-shadow: 0 0 0 2px var(--tw-color-neon-primary); /* Neon ring */
         }
         
-        .error-message { color: #f87171; font-size: 0.875rem; font-weight: 600;} /* Light red for dark background */
+        /* Button Gradient (Used for Sign Up) */
+        .btn-neon-gradient {
+            /* Neon Gradient from Violet/Pink to Cyan */
+            background-image: linear-gradient(to right, var(--tw-color-neon-secondary) 0%, var(--tw-color-neon-primary) 100%); 
+            transition: all 0.3s ease;
+        }
+        .btn-neon-gradient:hover {
+            /* Shift gradient and apply stronger shadow */
+            background-image: linear-gradient(to right, var(--tw-color-neon-accent) 0%, var(--tw-color-neon-secondary) 100%);
+            box-shadow: 0 0 10px var(--tw-color-neon-primary), 0 0 5px var(--tw-color-neon-secondary);
+            transform: translateY(-2px);
+        }
+
+        .error-message { 
+            color: var(--tw-color-neon-secondary); /* Neon Pink error */ 
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 0, 160, 0.5); /* Subtle glow on error */
+        }
     </style>
 </head>
 <body>
 
     <div class="auth-container max-w-md w-full mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="text-center mb-10">
-            <a href="index.html" class="inline-flex items-center space-x-2 group">
-                <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <a href="index.html" class="inline-flex items-center space-x-3 group">
+                <svg class="h-10 w-10 text-neon-primary drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                 </svg>
-                <span class="text-4xl font-extrabold text-white font-heading tracking-tight">Jith-tech</span>
+                <span class="text-4xl font-extrabold text-white font-heading tracking-tight drop-shadow-md">Jith-tech</span>
             </a>
-            <h2 class="mt-8 text-3xl font-extrabold text-white font-heading">
-                🚀 Start Your Free Trial
+            <h2 class="mt-8 text-3xl font-extrabold text-neon-primary font-heading uppercase text-shadow-sm" style="text-shadow: 0 0 10px rgba(0, 224, 255, 0.4);">
+                // ACCESS REQUIRED
             </h2>
-            <p class="mt-3 text-base text-gray-300">
-                Already have an account? 
-                <a href="login.html" class="font-semibold text-white hover:text-primary-light transition duration-150 underline-offset-4 hover:underline">
-                    Sign in here
+            <p class="mt-3 text-base text-gray-400">
+                Authorized personnel log in: 
+                <a href="login.html" class="font-semibold text-neon-secondary hover:text-white transition duration-150 underline-offset-4 hover:underline">
+                    [SIGN IN]
                 </a>
             </p>
         </div>
 
-        <div class="p-10 rounded-2xl shadow-3xl glass-card">
+        <div class="p-10 rounded-xl shadow-neon-glow bg-card-cyber/80 backdrop-blur-sm border border-neon-primary/30">
             <form id="registerForm" class="space-y-6" method="POST">
                 
                 <div>
-                    <label for="full-name" class="block text-sm font-semibold text-gray-200 mb-1 tracking-wider">FULL NAME</label>
+                    <label for="full-name" class="block text-sm font-bold text-neon-primary mb-1 tracking-widest">FULL NAME</label>
                     <div class="mt-1">
                         <input id="full-name" name="full-name" type="text" autocomplete="name" required
-                            placeholder="e.g., Sarjith"
-                            class="appearance-none block w-full px-4 py-3 rounded-lg text-base transition duration-150 glass-input focus:outline-none focus:ring-primary-light focus:border-primary-light">
+                            placeholder="e.g., Kaito_User_01"
+                            class="cyber-input block w-full px-4 py-3 rounded-lg text-base">
                     </div>
                 </div>
 
                 <div>
-                    <label for="reg-email" class="block text-sm font-semibold text-gray-200 mb-1 tracking-wider">EMAIL ADDRESS</label>
+                    <label for="reg-email" class="block text-sm font-bold text-neon-primary mb-1 tracking-widest">EMAIL ADDRESS</label>
                     <div class="mt-1">
                         <input id="reg-email" name="email" type="email" autocomplete="email" required
-                            placeholder="you@company.com"
-                            class="appearance-none block w-full px-4 py-3 rounded-lg text-base transition duration-150 glass-input focus:outline-none focus:ring-primary-light focus:border-primary-light">
+                            placeholder="user@datacore.net"
+                            class="cyber-input block w-full px-4 py-3 rounded-lg text-base">
                     </div>
                 </div>
 
                 <div>
-                    <label for="reg-password" class="block text-sm font-semibold text-gray-200 mb-1 tracking-wider">PASSWORD</label>
+                    <label for="reg-password" class="block text-sm font-bold text-neon-primary mb-1 tracking-widest">PASSWORD</label>
                     <div class="mt-1 relative">
                         <input id="reg-password" name="password" type="password" autocomplete="new-password" required
-                            placeholder="At least 6 characters"
-                            class="appearance-none block w-full pr-12 px-4 py-3 rounded-lg text-base transition duration-150 glass-input focus:outline-none focus:ring-primary-light focus:border-primary-light">
+                            placeholder="SECURITY LEVEL 6+"
+                            class="cyber-input block w-full pr-12 px-4 py-3 rounded-lg text-base">
                         
-                        <svg id="password-toggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-300 cursor-pointer hover:text-primary-light transition duration-150"
+                        <svg id="password-toggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 cursor-pointer hover:text-neon-primary transition duration-150"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path id="eye-path" stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.66 0-8.647-2.922-10-7 1.353-4.078 5.34-7 10-7 4.66 0 8.647 2.922 10 7-1.353 4.078-5.34 7-10 7z" />
+                            <path id="eye-path" stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.66 0-8.647-2.922-10-7 1.353-4.078 5.34-7 10-7 1.258 0 2.482.203 3.625.575M17.5 14.5a3 3 0 11-6 0 3 3 0 016 0z" /> 
                             <path id="dot-path" stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path id="slash-path" stroke-linecap="round" stroke-linejoin="round" d="M19.5 4.5l-15 15" class="opacity-100" />
                         </svg>
@@ -165,20 +172,20 @@
                 
                 <div class="flex items-start pt-2">
                     <div class="flex items-center">
-                        <input id="terms-agree" name="terms-agree" type="checkbox" class="h-4 w-4 text-primary-light border-gray-400 rounded-sm focus:ring-primary-deep bg-transparent" required>
+                        <input id="terms-agree" name="terms-agree" type="checkbox" class="h-4 w-4 text-neon-primary border-gray-600 rounded-sm focus:ring-neon-primary bg-card-cyber" required>
                     </div>
-                    <label for="terms-agree" class="ml-2 block text-sm text-gray-200">
-                        I agree to the 
-                        <a href="#" class="font-bold text-primary-light hover:text-white transition duration-150">
-                            Terms and Conditions
+                    <label for="terms-agree" class="ml-2 block text-sm text-gray-400">
+                        I accept the 
+                        <a href="#" class="font-bold text-neon-primary hover:text-white transition duration-150">
+                            DATA PROTOCOLS
                         </a>
                     </label>
                 </div>
 
                 <div class="pt-2">
                     <button type="submit"
-                        class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-lg shadow-md text-lg font-bold text-white btn-gradient focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 active:scale-[.99] transition duration-150">
-                        Sign Up Now
+                        class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-lg shadow-md text-lg font-bold text-white btn-neon-gradient uppercase active:scale-[0.98] transition duration-150">
+                        // INITIATE REGISTRATION
                     </button>
                 </div>
             </form>
@@ -219,7 +226,7 @@
 
             // Simple validation check for full name (Firebase handles email/password)
             if (fullName.trim().length < 2) {
-                errorMessageElement.textContent = '⚠️ Please enter your full name.';
+                errorMessageElement.textContent = '⚠️ DATA_ERROR: Please enter your full designation.';
                 errorMessageElement.classList.remove('hidden');
                 return;
             }
@@ -242,34 +249,40 @@
                 });
         });
 
-        // Toggle password visibility (Improved Icon Handling)
+        // Toggle password visibility 
         const passwordField = document.getElementById('reg-password');
         const passwordToggleIcon = document.getElementById('password-toggle');
         const eyePath = document.getElementById('eye-path');
-        const dotPath = document.getElementById('dot-path');
         const slashPath = document.getElementById('slash-path');
         
+        // Original paths for closed eye (eye with slash)
+        const closedEyePathD = "M13.875 18.825A10.05 10.05 0 0112 19c-4.66 0-8.647-2.922-10-7 1.353-4.078 5.34-7 10-7 1.258 0 2.482.203 3.625.575M17.5 14.5a3 3 0 11-6 0 3 3 0 016 0z";
+        
+        // Paths for open eye (no slash)
+        const openEyePathD = "M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z";
+        
+        // Set initial state correctly
+        eyePath.setAttribute("d", closedEyePathD);
+        slashPath.classList.add('opacity-100');
+        passwordToggleIcon.classList.add('text-gray-500');
+
         passwordToggleIcon.addEventListener('click', function () {
             if (passwordField.type === "password") {
                 // Change to text (Show password - Open eye)
                 passwordField.type = "text";
-                // Swap paths to represent the open eye (the paths logic was already inverted, keeping the original logic flow)
-                eyePath.setAttribute("d", "M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"); // Full eye shape
-                dotPath.setAttribute("d", "M15 12a3 3 0 11-6 0 3 3 0 016 0z"); // Simple circle
+                eyePath.setAttribute("d", openEyePathD); // Full open eye shape
                 slashPath.classList.add('opacity-0'); // Hide the slash
                 slashPath.classList.remove('opacity-100');
-                passwordToggleIcon.classList.remove('text-gray-300');
-                passwordToggleIcon.classList.add('text-primary-light'); // Change icon color to primary
+                passwordToggleIcon.classList.remove('text-gray-500');
+                passwordToggleIcon.classList.add('text-neon-primary'); // Change icon color to neon
             } else {
                 // Change to password (Hide password - Closed eye with slash)
                 passwordField.type = "password";
-                // Restore paths to represent the closed eye
-                eyePath.setAttribute("d", "M13.875 18.825A10.05 10.05 0 0112 19c-4.66 0-8.647-2.922-10-7 1.353-4.078 5.34-7 10-7 1.258 0 2.482.203 3.625.575M17.5 14.5a3 3 0 11-6 0 3 3 0 016 0z"); 
-                dotPath.setAttribute("d", "M15 12a3 3 0 11-6 0 3 3 0 016 0z"); // Re-include the dot path for the closed eye
+                eyePath.setAttribute("d", closedEyePathD); // Restore closed eye path
                 slashPath.classList.remove('opacity-0'); // Show the slash
                 slashPath.classList.add('opacity-100');
-                passwordToggleIcon.classList.remove('text-primary-light');
-                passwordToggleIcon.classList.add('text-gray-300'); // Reset icon color to gray
+                passwordToggleIcon.classList.remove('text-neon-primary');
+                passwordToggleIcon.classList.add('text-gray-500'); // Reset icon color to gray
             }
         });
 
@@ -278,13 +291,13 @@
         function getErrorMessage(errorCode) {
             switch (errorCode) {
                 case 'auth/email-already-in-use':
-                    return '❌ This email is already registered. Try logging in.';
+                    return '❌ CONFLICT: Email already exists in the main frame. Access denied.';
                 case 'auth/invalid-email':
-                    return '⚠️ Please enter a valid email address.';
+                    return '⚠️ PROTOCOL_VIOLATION: Invalid email format detected. Check input.';
                 case 'auth/weak-password':
-                    return '🔐 Password should be at least 6 characters.';
+                    return '🔐 WARNING: Access code too weak. Must be 6 characters or longer.';
                 default:
-                    return '🚨 An unexpected error occurred. Please try again.';
+                    return '🚨 UNKNOWN_ERROR: An unexpected data breach occurred. Retry process.';
             }
         }
     </script>
