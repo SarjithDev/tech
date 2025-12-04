@@ -150,41 +150,43 @@
             </div>
         </div>
     </header>
-    
-    <script>
-        // Initialize Firebase
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+      
+        // Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyB0c89IeqVrz8aJ9BMX6eLQh6tmrLwdD_E",
-            authDomain: "myweb-336bd.firebaseapp.com",
-            projectId: "myweb-336bd",
-            storageBucket: "myweb-336bd.firebasestorage.app",
-            messagingSenderId: "720945527691",
-            appId: "1:720945527691:web:865c08bf46f7562963cd8e"
+          apiKey: "AIzaSyB0c89IeqVrz8aJ9BMX6eLQh6tmrLwdD_E",
+          authDomain: "myweb-336bd.firebaseapp.com",
+          projectId: "myweb-336bd",
+          storageBucket: "myweb-336bd.firebasestorage.app",
+          messagingSenderId: "720945527691",
+          appId: "1:720945527691:web:865c08bf46f7562963cd8e"
         };
-        firebase.initializeApp(firebaseConfig);
-    
-        const auth = firebase.auth();
-    
-        // Debugging: Log when auth state changes
-        auth.onAuthStateChanged((user) => {
-            console.log('User state changed: ', user);  // This will show if auth state changes
-    
-            const loginBtn = document.getElementById('login-btn');
-            const logoutBtn = document.getElementById('logout-btn');
-            
-            if (user) {
-                // User is logged in
-                console.log('User is logged in');
-                loginBtn.classList.add('hidden');
-                logoutBtn.classList.remove('hidden');
-            } else {
-                // User is not logged in
-                console.log('No user logged in');
-                loginBtn.classList.remove('hidden');
-                logoutBtn.classList.add('hidden');
-            }
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        
+        // Get the Auth instance
+        const auth = getAuth(app);
+      
+        // Check if a user is logged in
+        onAuthStateChanged(auth, (user) => {
+          const loginBtn = document.getElementById('login-btn');
+          const logoutBtn = document.getElementById('logout-btn');
+          
+          if (user) {
+            // If the user is logged in
+            loginBtn.classList.add('hidden');  // Hide login button
+            logoutBtn.classList.remove('hidden');  // Show logout button
+          } else {
+            // If no user is logged in
+            loginBtn.classList.remove('hidden');  // Show login button
+            logoutBtn.classList.add('hidden');  // Hide logout button
+          }
         });
-    </script>
+      </script>
+      
     
 
 <main>
@@ -340,8 +342,8 @@
                         "The migration to the cloud was seamless and incredibly fast. The DevOps pipeline implemented by Sarjith's team has cut our deployment time by over 60%."
                     </p>
                     <div class="mt-6 border-t pt-4">
-                        <p class="font-semibold text-gray-900">John Smith</p>
-                        <p class="text-sm text-indigo-600">CTO, Global Finance Corp</p>
+                        <p class="font-semibold text-gray-900">Gaveen</p>
+                        <p class="text-sm text-indigo-600">CEO, Global Shop Market</p>
                     </div>
                 </div>
 
@@ -351,8 +353,8 @@
                         "We needed a complex product configurator in Three.js, and they built it perfectly. The performance is flawless across all browsers. Highly recommend."
                     </p>
                     <div class="mt-6 border-t pt-4">
-                        <p class="font-semibold text-gray-900">Maria Lopez</p>
-                        <p class="text-sm text-indigo-600">Director of Product, DesignHub</p>
+                        <p class="font-semibold text-gray-900">Vapishal</p>
+                        <p class="text-sm text-indigo-600">Director of Beautician, DesignHub</p>
                     </div>
                 </div>
 
@@ -362,8 +364,8 @@
                         "Their data strategy consulting helped us unlock new revenue streams using generative AI. The team is professional, knowledgeable, and reliable."
                     </p>
                     <div class="mt-6 border-t pt-4">
-                        <p class="font-semibold text-gray-900">David Chang</p>
-                        <p class="text-sm text-indigo-600">CEO, Innovate Retail</p>
+                        <p class="font-semibold text-gray-900">Laron</p>
+                        <p class="text-sm text-indigo-600">CEO, Fish Shop</p>
                     </div>
                 </div>
 
